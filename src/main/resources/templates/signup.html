@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Signup Template</h1>
+
+<form method="post" th:action="@{/signup}" th:object = "${user}">
+
+    <label for = "firstname">Firstname</label>
+    <input id = "firstname" th:field = "*{firstname}">
+    <label for = "lastname">Lastname</label>
+    <input id = "lastname" th:field = "*{lastname}">
+
+    <label for = "username">Username</label>
+    <input id = "username" th:field = "*{username}">
+    <label for = "password">Password</label>
+    <input id = "password" th:field = "*{password}">
+
+    <input type="submit" value="Registrieren">
+
+</form>
+
+<h1 th:if =  "${errormsg != null}"> Username bereits vergeben</h1>
+<h1 th:if =  "${signupsuccess == true}"> User wurde erfolgreich erstellt! Klicken sie <a href="/login"> hier um sich einzuloggen</a> </h1>
+
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Demo Login</title>
+</head>
+<body>
+
+<form th:action = "@{/login}" method="post">
+
+    <label for = "Username">Username</label>
+    <input type="text" id = "username" name="password" >
+    <label for = "Password" >Password</label>
+    <input type="password" id="password"  name = "username">
+
+    <input type="submit" value="Login">
+
+
+</form>
+
+<div style="height:20px;"></div>
+
+<div>
+    Noch keinen User? Dann auf Registrieren klicken:
+    <form method="get" th:action="@{/signup}">
+     <input type="submit"  value="Registreren" >
+    </form>
+</div>
+
+</body>
+</html>
