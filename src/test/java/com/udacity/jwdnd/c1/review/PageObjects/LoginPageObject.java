@@ -24,10 +24,12 @@ public class LoginPageObject {
     WebElement registerButton;
 
     public void inputUsername(String username){
+        this.username.clear();
         this.username.sendKeys(username);
     }
 
     public void inputPassword(String password){
+        this.password.clear();
         this.password.sendKeys(password);
     }
 

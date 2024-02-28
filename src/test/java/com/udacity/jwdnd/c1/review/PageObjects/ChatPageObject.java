@@ -29,6 +29,7 @@ public class ChatPageObject {
 
 
     public void inputMessageText(String messagetext) {
+        this.messageText.clear();
         this.messageText.sendKeys(messagetext);
     }
 

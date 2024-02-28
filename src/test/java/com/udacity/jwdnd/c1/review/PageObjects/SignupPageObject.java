@@ -35,18 +35,22 @@ public class SignupPageObject {
     WebElement succesMessage;
 
     public void inputFirstName(String firstname){
+        this.firstname.clear();
         this.firstname.sendKeys(firstname);
     }
 
     public void inputLastName(String lastname){
+        this.lastname.clear();
         this.lastname.sendKeys(lastname);
     }
 
     public void inputUserName(String username){
+        this.username.clear();
         this.username.sendKeys(username);
     }
 
     public void inputPassword(String password){
+        this.password.clear();
         this.password.sendKeys(password);
     }
 
