@@ -42,7 +42,6 @@ public class MessageService {
             chatMessage.setMessagetext("This Message is not displayed cause rude expressions were used");
         }
 
-        messageMapper.createMessage(chatMessage);
         this.messageMapper.createMessage(chatMessage);
 
     }

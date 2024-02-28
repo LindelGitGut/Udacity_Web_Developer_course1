@@ -4,23 +4,33 @@ package com.udacity.jwdnd.c1.review;
 import com.udacity.jwdnd.c1.review.PageObjects.ChatPageObject;
 import com.udacity.jwdnd.c1.review.PageObjects.LoginPageObject;
 import com.udacity.jwdnd.c1.review.PageObjects.SignupPageObject;
+import com.udacity.jwdnd.c1.review.services.UserService;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.security.core.Authentication;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.DriverManager;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
 public class SeleniumTest {
 
     private static WebDriver webDriver;
+
+    @LocalServerPort
+    private int port;
 
     @BeforeAll
     public static void initWebDriver(){
@@ -32,7 +42,7 @@ public class SeleniumTest {
 
     @BeforeEach
     public void openStartPage(){
-        this.webDriver.get("http://localhost:8080/login");
+        this.webDriver.get("http://localhost:"+port+"/login");
     }
 
     @Test
@@ -51,19 +61,22 @@ public class SeleniumTest {
         Thread.sleep(2000);
         signupPage.clickRegisterButton();
         Thread.sleep(1000);
-
-        //TODO check how we can receive if a user is signed up successfully
         assertEquals(signupPage.getSuccessMessage().contains("User wurde erfolgreich erstellt! Klicken sie"), true);
 
     }
 
     @Test
-    public void loginTest(){
+    public void loginTest() throws InterruptedException {
         LoginPageObject loginPage = new LoginPageObject(this.webDriver);
         loginPage.inputUsername("Alex");
         loginPage.inputPassword("password");
 
-        //TODO check wich assert we should use to check successfull login
+        Thread.sleep(200);
+
+        ChatPageObject chatPageObject = new ChatPageObject(webDriver);
+        WebElement loggedInElement = chatPageObject.getSubmitbutton();
+        assertNotNull(loggedInElement);
+
     }
 
     @Test
@@ -73,16 +86,19 @@ public class SeleniumTest {
         loginPage.inputPassword("password");
         loginPage.clickLoginButton();
 
-        //TODO Add Chatmessage
 
-        Thread.sleep(4000);
+
+        Thread.sleep(1000);
 
         ChatPageObject chatPage = new ChatPageObject(this.webDriver);
-        chatPage.inputMessageText("I am the almighty TestMEssage!");
+        Thread.sleep(1000);
+        chatPage.inputMessageText("I am the allmighty TestMEssage!");
         chatPage.inputMessageType("Shout");
         chatPage.clickSubmit();
 
-        Thread.sleep(10000);
+        Thread.sleep(20000);
+
+        assertEquals(true, chatPage.getMessages().stream().anyMatch(s -> s.contains("User: Alex | Nachricht: I AM THE ALLMIGHTY TESTMESSAGE!")));
 
     }
 

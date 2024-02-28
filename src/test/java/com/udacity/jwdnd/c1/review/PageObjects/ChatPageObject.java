@@ -50,4 +50,8 @@ public class ChatPageObject {
         return allMessages;
     }
 
+   public WebElement getSubmitbutton(){
+        return this.submitbutton;
+    }
+
 }
