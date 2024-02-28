@@ -24,8 +24,8 @@ public class SeleniumTest {
 
     @BeforeAll
     public static void initWebDriver(){
-        WebDriverManager.chromedriver().clearCache();
-        WebDriverManager.chromedriver().clearPreferences();
+        WebDriverManager.chromedriver().clearDriverCache();
+        WebDriverManager.chromedriver().clearResolutionCache();
         WebDriverManager.chromedriver().setup();
          webDriver = new ChromeDriver();
     }
@@ -36,17 +36,21 @@ public class SeleniumTest {
     }
 
     @Test
-    public void userRegistrationTest(){
+    public void userRegistrationTest() throws InterruptedException {
 
         LoginPageObject loginPage = new LoginPageObject(this.webDriver);
         loginPage.clickRegisterButton();
+
+        Thread.sleep(200);
 
         SignupPageObject signupPage = new SignupPageObject(this.webDriver);
         signupPage.inputFirstName("Alexandre");
         signupPage.inputLastName("Lindele");
         signupPage.inputUserName("Alex");
         signupPage.inputPassword("password");
+        Thread.sleep(2000);
         signupPage.clickRegisterButton();
+        Thread.sleep(1000);
 
         //TODO check how we can receive if a user is signed up successfully
         assertEquals(signupPage.getSuccessMessage().contains("User wurde erfolgreich erstellt! Klicken sie"), true);
@@ -63,7 +67,7 @@ public class SeleniumTest {
     }
 
     @Test
-    public void sendChatMessage(){
+    public void sendChatMessage() throws InterruptedException {
         LoginPageObject loginPage = new LoginPageObject(this.webDriver);
         loginPage.inputUsername("Alex");
         loginPage.inputPassword("password");
@@ -71,9 +75,14 @@ public class SeleniumTest {
 
         //TODO Add Chatmessage
 
+        Thread.sleep(4000);
+
         ChatPageObject chatPage = new ChatPageObject(this.webDriver);
         chatPage.inputMessageText("I am the almighty TestMEssage!");
         chatPage.inputMessageType("Shout");
+        chatPage.clickSubmit();
+
+        Thread.sleep(10000);
 
     }
 

@@ -13,7 +13,7 @@ public class SignupPageObject {
         PageFactory.initElements(webDriver, this);
     }
 
-    @FindBy(id = "fistname")
+    @FindBy(id = "firstname")
     WebElement firstname;
 
     @FindBy(id = "lastname")
@@ -25,13 +25,13 @@ public class SignupPageObject {
     @FindBy(id = "password")
     WebElement password;
 
-    @FindBy(xpath = "input[type='submit'][value = 'Registrieren]")
+    @FindBy(css = "input[type='submit'][value = 'Registrieren']")
     WebElement registerButton;
 
     @FindBy(xpath = "//h1[contains(text(), 'Username bereits vergeben')]")
     WebElement errorMessage;
 
-    @FindBy(xpath = "\"//h1[contains(text(), 'User wurde erfolgreich erstellt! Klicken sie')]")
+    @FindBy(xpath = "//h1[contains(text(), 'User wurde erfolgreich erstellt! Klicken sie')]")
     WebElement succesMessage;
 
     public void inputFirstName(String firstname){
